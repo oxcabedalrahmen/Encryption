@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>crypto</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        .main{
+            background-color: rgb(30, 17, 104);
+            border-radius: 50px;
+            width: 600px;
+            height: 600px;
+            margin-left: 400px;
+            margin-top: 50px;
+            overflow-y: auto;
+ 
+
+        }
+        .main input {
+            width: 50%;
+            height: 5%;
+            margin-left: 100px;
+            margin-top: 40px;
+            border-radius: 50px;
+        }
+        .main h1{
+            text-align: center;
+            word-wrap: break-word;   
+            overflow-wrap: break-word;  
+            white-space: normal;   
+            word-break: break-all;
+            max-width: 100%;      
+            word-break: break-word;
+
+        }
+        .main button{
+            color: rgb(142, 0, 224);
+            background-color: black;
+            width: 90px;
+            height: 30px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <input type="text" id="one">
+        <button onclick="s1();">click</button>
+         <h1 id="x"></h1>
+         <input type="text" id="v">
+         <button onclick="s2();">click</button>
+         <h1 id="f"></h1>
+    </div>
+    <script>
+        
+        async function data() {
+            var x=await fetch("http://127.0.0.1:8000")
+            var de=await x.json()
+            var h1=document.getElementById("x").textContent=de.mass
+            var h2=document.getElementById("f").textContent=de.da
+        
+            
+
+        }
+        async function s1() {
+            const input = document.getElementById("one").value;
+            const response = await fetch(" http://127.0.0.1:8000/encrypt", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" 
+
+
+                }, body: JSON.stringify({ mass: input })
+               
+        
+            });
+           await response.json(); 
+           data()
+
+        }
+        async function s2() {
+            const input1 = document.getElementById("v").value;
+            const response = await fetch("http://127.0.0.1:8000/up", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" 
+
+
+                }, body: JSON.stringify({ mass: input1 })
+
+            })
+            await response.json(); 
+           data()
+
+        }
+    </script>
+</body>
+</html>
